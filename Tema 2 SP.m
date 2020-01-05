@@ -1,28 +1,27 @@
 D=8;
-N=50; %Numarul de coeficinti ales N=50
-T = 40;
+N=50; %Numarul de coeficienti ales este N=50 conform cerintei
+T=40;
 f=1/T; %Frecventa semnalului
 w=2*pi*f; 
 
 C = zeros(1,2*N+1); %Am initializat vectorul de coeficienti cu valori nule
 
-%Rezolutia temorala t=100ms
+%Rezolutia temporala t=100ms
 t = -2*T:0.1:2*T; %0.1 = 100ms 
 
-%Contruire semnal initial:
+%Construim semnalul initial:
 x=abs(sawtooth(w*t,0.2));
 
-%Deoarece, pentru D=T/2=20, avem xmax=0.5, atunci pentru D=8, avem
-%xmax=0.2
+%Deoarece, pentru D=T/2=20, avem xmax=0.5, atunci pentru D=8, avem xmax=0.2
 
-%Calculul coeficientilor folosind formula:
+%Calculam coeficientii folosind formula:
 for k = -N:N
 
 C(k+N+1) = integral(@(t)((abs(sawtooth(w*t,0.2))+sawtooth(w*t,0.2)))/2.*exp(-1j*k*w*t),0,T);
 
 end
 
-%Reconstruirea semnalului initial:
+%Reconstruim semnalul initial:
 xr=0;
 
 for k = -N:N
